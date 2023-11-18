@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">KP</string>
+    <string name="authorization">Авторизация</string>
+    <string name="username">Имя пользователя</string>
+    <string name="password">Пароль</string>
+    <string name="log_in">Войти</string>
+</resources>
