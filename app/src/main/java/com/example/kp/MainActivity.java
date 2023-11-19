@@ -17,8 +17,6 @@ import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String baseURL = "https://wiki.glowbyteconsulting.com/";
-    private static final String loginURl = "dologin.action";
     EditText loginUsernameText;
     EditText loginPasswordText;
 
