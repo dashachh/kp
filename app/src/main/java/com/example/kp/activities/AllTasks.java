@@ -1,38 +1,53 @@
 package com.example.kp.activities;
 
-import static com.example.kp.Constants.allIssuesURl;
+import static com.example.kp.entities.Constants.getAllIssuesURl;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.kp.R;
-import com.example.kp.Requests;
+import com.example.kp.entities.Requests;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.stream.Collectors;
 
 public class AllTasks extends AppCompatActivity {
 
     TextView issuesText;
+    private static final HashMap<String, String> tasks = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_tasks);
         issuesText = findViewById(R.id.textIssues);
-    }
-
-    public void allTasks(View view) {
-        String allTasks = "";
-        Requests.GetRequest allTasksRequest = new Requests.GetRequest();
+        String allTasksJSON = "";
+        Requests.GetRequestAsync allTasksRequest = new Requests.GetRequestAsync();
         try {
-            allTasks = allTasksRequest.execute(allIssuesURl).get();
+            allTasksJSON = allTasksRequest.execute(getAllIssuesURl).get();
         } catch (Exception exception) {
             exception.printStackTrace();
         }
-//        new IssuesExec().execute();
-//        JSONObject issues = new JSONObject(allMyIssues);
-//        String issueKey = issues.getJSONObject("issues").getJSONArray("key").get(0).toString();
-        issuesText.setText(allTasks);
+        try {
+            JSONArray issuesJSON = new JSONObject(allTasksJSON).getJSONArray("issues");
+            for (int i = 0, size = issuesJSON.length(); i < size; i++) {
+                JSONObject task = new JSONObject(issuesJSON.getJSONObject(i).toString());
+                tasks.put(
+                        task.get("key").toString(),
+                        task.getJSONObject("fields").get("summary").toString()
+                );
+            }
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        String tasksString = tasks.keySet().stream().map(key -> key + " = " + tasks.get(key)).collect(Collectors.joining("\n"));
+        issuesText.setText(tasksString);
+        // TODO: 25.11.2023 создание кнопок или кликабельных ссылок-названий тасков
     }
 }
