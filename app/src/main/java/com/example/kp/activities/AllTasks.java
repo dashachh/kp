@@ -2,6 +2,7 @@ package com.example.kp.activities;
 
 import static com.example.kp.entities.Constants.getAllIssuesURl;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -26,11 +27,13 @@ public class AllTasks extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_tasks);
+        Intent intent = getIntent();
+        String encodedToken = intent.getSerializableExtra("token").toString();
         issuesText = findViewById(R.id.textIssues);
         String allTasksJSON = "";
         Requests.GetRequestAsync allTasksRequest = new Requests.GetRequestAsync();
         try {
-            allTasksJSON = allTasksRequest.execute(getAllIssuesURl).get();
+            allTasksJSON = allTasksRequest.execute(encodedToken, getAllIssuesURl).get();
         } catch (Exception exception) {
             exception.printStackTrace();
         }
