@@ -2,34 +2,47 @@ package com.example.kp.activities;
 
 import static com.example.kp.entities.Constants.getAllIssuesURl;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.kp.R;
+import com.example.kp.entities.Issue;
+import com.example.kp.entities.IssueAdapter;
 import com.example.kp.entities.Requests;
+import com.example.kp.entities.SelectListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
 
-public class AllTasks extends AppCompatActivity {
+public class AllTasks extends AppCompatActivity implements SelectListener {
 
-    TextView issuesText;
-    private static final HashMap<String, String> tasks = new HashMap<>();
+    // TODO: 28.12.2023 кнопочку выхода из аккаунта
+    RecyclerView issuesView;
+    IssueAdapter adapter;
+    String encodedToken;
+    private static final List<Issue> allIssues = new ArrayList<>();
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_all_tasks);
+        setContentView(R.layout.recycler_issues);
         Intent intent = getIntent();
-        String encodedToken = intent.getSerializableExtra("token").toString();
-        issuesText = findViewById(R.id.textIssues);
+        encodedToken = intent.getSerializableExtra("token").toString();
+        issuesView = findViewById(R.id.allIssues);
+
+        issuesView.addItemDecoration(
+                new DividerItemDecoration(
+                        issuesView.getContext(), DividerItemDecoration.VERTICAL));
         String allTasksJSON = "";
         Requests.GetRequestAsync allTasksRequest = new Requests.GetRequestAsync();
         try {
@@ -41,16 +54,24 @@ public class AllTasks extends AppCompatActivity {
             JSONArray issuesJSON = new JSONObject(allTasksJSON).getJSONArray("issues");
             for (int i = 0, size = issuesJSON.length(); i < size; i++) {
                 JSONObject task = new JSONObject(issuesJSON.getJSONObject(i).toString());
-                tasks.put(
-                        task.get("key").toString(),
-                        task.getJSONObject("fields").get("summary").toString()
-                );
+                Issue issue = new Issue();
+                issue.setName(task.getJSONObject("fields").get("summary").toString());
+                issue.setId(task.get("key").toString());
+                allIssues.add(issue);
             }
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
-        String tasksString = tasks.keySet().stream().map(key -> key + " = " + tasks.get(key)).collect(Collectors.joining("\n"));
-        issuesText.setText(tasksString);
-        // TODO: 25.11.2023 создание кнопок или кликабельных ссылок-названий тасков
+
+        adapter = new IssueAdapter(this, allIssues, this);
+        issuesView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onItemClicked(Issue issue) {
+        Intent intent = new Intent(this, IssueInfo.class);
+        intent.putExtra("token", encodedToken);
+        intent.putExtra("issue_id", issue.getId());
+        startActivity(intent);
     }
 }

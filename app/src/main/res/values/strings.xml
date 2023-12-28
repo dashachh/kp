@@ -1,8 +1,13 @@
 <resources>
     <string name="app_name">KP</string>
-    <string name="authorization">Авторизация</string>
-    <string name="username">Имя пользователя</string>
-    <string name="password">Пароль</string>
-    <string name="log_in">Войти</string>
-    <string name="all_tasks">Все задачи:</string>
+    <string name="authorization">Authorization</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="log_in">Log In</string>
+    <string name="log_time">Log Time</string>
+    <string name="edit_description">Edit Description</string>
+    <string name="issue_name">Issue Name</string>
+    <string name="issue_id">Issue Id</string>
+    <string name="issue_status">Issue Status</string>
+    <string name="issue_description">Issue Description</string>
 </resources>

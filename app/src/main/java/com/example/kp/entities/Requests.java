@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -21,6 +22,39 @@ public class Requests {
                 connection.setRequestMethod("GET");
 //                connection.setRequestProperty("Content-Type", "apllication/json");
                 connection.setRequestProperty("Authorization", params[0]);
+                if (connection.getResponseCode() == 200) {
+                    String output = "";
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                    while ((output = bufferedReader.readLine()) != null) {
+                        response.append(output);
+                    }
+                    connection.disconnect();
+                    return response.toString();
+                }
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    public static class PutRequestAsync extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+            StringBuilder response = new StringBuilder();
+            try {
+                URL url = new URL(baseURL + params[1]);
+                HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
+                connection.setRequestMethod("PUT");
+                connection.setRequestProperty("Content-Type", "apllication/json");
+                connection.setRequestProperty("Authorization", params[0]);
+
+                byte[] outputBytes = params[2].getBytes("UTF-8");
+
+                connection.setDoOutput(true);
+                OutputStream out = connection.getOutputStream();
+                out.write(outputBytes);
+
                 if (connection.getResponseCode() == 200) {
                     String output = "";
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));

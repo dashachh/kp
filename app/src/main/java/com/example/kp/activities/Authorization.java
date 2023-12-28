@@ -4,9 +4,9 @@ import static com.example.kp.entities.Constants.getCurrentUserURL;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -41,7 +41,8 @@ public class Authorization extends AppCompatActivity {
                     startActivity(intent);
                 }
             } catch (Exception exception) {
-                Log.d("auth111", "fail");
+                Toast toast = Toast.makeText(getApplicationContext(), "Неверный логин или пароль!", Toast.LENGTH_SHORT);
+                toast.show();
             }
         }
     }

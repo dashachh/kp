@@ -15,6 +15,9 @@
         android:theme="@style/Theme.KP"
         tools:targetApi="31">
         <activity
+            android:name=".activities.IssueInfo"
+            android:exported="false" />
+        <activity
             android:name=".activities.AllTasks"
             android:exported="false" />
         <activity
