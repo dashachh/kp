@@ -9,5 +9,13 @@
     <string name="issue_name">Issue Name</string>
     <string name="issue_id">Issue Id</string>
     <string name="issue_status">Issue Status</string>
+    <string name="issue_status_text">Status:</string>
     <string name="issue_description">Issue Description</string>
+    <string name="issue_description_text">Description:</string>
+    <string name="issue_logged">Logged</string>
+    <string name="issue_logged_text">Logged:</string>
+    <string name="issue_remaining">Remaining</string>
+    <string name="issue_remaining_text">Remaining:</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="back">Back</string>
 </resources>

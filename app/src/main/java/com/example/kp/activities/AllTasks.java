@@ -3,9 +3,12 @@ package com.example.kp.activities;
 import static com.example.kp.entities.Constants.getAllIssuesURl;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,21 +28,21 @@ import java.util.List;
 
 public class AllTasks extends AppCompatActivity implements SelectListener {
 
-    // TODO: 28.12.2023 кнопочку выхода из аккаунта
     RecyclerView issuesView;
     IssueAdapter adapter;
     String encodedToken;
+    AlertDialog dialog;
     private static final List<Issue> allIssues = new ArrayList<>();
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        allIssues.clear();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recycler_issues);
         Intent intent = getIntent();
         encodedToken = intent.getSerializableExtra("token").toString();
         issuesView = findViewById(R.id.allIssues);
-
         issuesView.addItemDecoration(
                 new DividerItemDecoration(
                         issuesView.getContext(), DividerItemDecoration.VERTICAL));
@@ -62,7 +65,6 @@ public class AllTasks extends AppCompatActivity implements SelectListener {
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
-
         adapter = new IssueAdapter(this, allIssues, this);
         issuesView.setAdapter(adapter);
     }
@@ -74,4 +76,16 @@ public class AllTasks extends AppCompatActivity implements SelectListener {
         intent.putExtra("issue_id", issue.getId());
         startActivity(intent);
     }
+
+    public void signOut(View view) {
+        dialog = new AlertDialog.Builder(this).create();
+        dialog.setTitle("Are you sure you want to sign out?");
+
+        dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "CANCEL",
+                (dialog, which) -> dialog.cancel());
+        dialog.setButton(DialogInterface.BUTTON_POSITIVE, "SIGN OUT",
+                (dialog, which) -> finish());
+        dialog.show();
+    }
+
 }

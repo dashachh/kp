@@ -36,6 +36,8 @@ public class Authorization extends AppCompatActivity {
             Requests.GetRequestAsync authRequest = new Requests.GetRequestAsync();
             try {
                 if (!authRequest.execute(encodedToken, getCurrentUserURL).get().equals(null)) {
+                    loginUsernameText.setText("");
+                    passwordUsernameText.setText("");
                     Intent intent = new Intent(this, AllTasks.class);
                     intent.putExtra("token", encodedToken);
                     startActivity(intent);

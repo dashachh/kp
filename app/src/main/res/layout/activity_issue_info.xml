@@ -6,71 +6,162 @@
     android:layout_height="match_parent"
     tools:context=".activities.IssueInfo">
 
+    <Button
+        android:id="@+id/buttonSignOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:onClick="signOut"
+        android:text="@string/sign_out"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:onClick="back"
+        android:text="@string/back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/issueId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
         android:text="@string/issue_id"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/buttonBack" />
 
     <TextView
         android:id="@+id/issueName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
         android:text="@string/issue_name"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/issueId" />
+
+    <TextView
+        android:id="@+id/issueStatusText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/issue_status_text"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/issueName" />
 
     <TextView
         android:id="@+id/issueStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:text="@string/issue_status"
         android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@id/issueStatusText"
+        app:layout_constraintTop_toTopOf="@id/issueStatusText" />
+
+    <TextView
+        android:id="@+id/issueDescriptionText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="40dp"
+        android:text="@string/issue_description_text"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/issueName" />
+        app:layout_constraintTop_toBottomOf="@id/issueStatusText" />
 
     <TextView
         android:id="@+id/issueDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:text="@string/issue_description"
         android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@id/issueDescriptionText"
+        app:layout_constraintTop_toTopOf="@id/issueDescriptionText" />
+
+    <TextView
+        android:id="@+id/issueLoggedText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="40dp"
+        android:text="@string/issue_logged_text"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/issueStatus" />
+        app:layout_constraintTop_toBottomOf="@id/issueDescriptionText" />
+
+    <TextView
+        android:id="@+id/issueLogged"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="@string/issue_logged"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@id/issueLoggedText"
+        app:layout_constraintTop_toTopOf="@id/issueLoggedText" />
+
+    <TextView
+        android:id="@+id/issueRemainingText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/issue_remaining_text"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/issueLoggedText" />
+
+    <TextView
+        android:id="@+id/issueRemaining"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="@string/issue_remaining"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@id/issueRemainingText"
+        app:layout_constraintTop_toTopOf="@id/issueRemainingText" />
 
     <Button
         android:id="@+id/buttonLogTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/log_time"
         android:onClick="logTime"
-        tools:layout_marginBottom="10dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/log_time"
+        app:layout_constraintBottom_toTopOf="@id/buttonEditDescription"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/buttonEdit" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_marginBottom="10dp" />
 
     <Button
-        android:id="@+id/buttonEdit"
+        android:id="@+id/buttonEditDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/edit_description"
         android:onClick="editDescription"
-        tools:layout_marginBottom="10dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/edit_description"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_marginBottom="10dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
