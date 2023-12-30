@@ -43,7 +43,7 @@ public class Authorization extends AppCompatActivity {
                     startActivity(intent);
                 }
             } catch (Exception exception) {
-                Toast toast = Toast.makeText(getApplicationContext(), "Неверный логин или пароль!", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getApplicationContext(), "Wrong login or password!", Toast.LENGTH_SHORT);
                 toast.show();
             }
         }

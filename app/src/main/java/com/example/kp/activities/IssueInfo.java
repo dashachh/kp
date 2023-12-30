@@ -134,11 +134,11 @@ public class IssueInfo extends AppCompatActivity {
                                 issueRemainingView.setText(issueInfo.getRemaining());
                             }
                         } catch (Exception exception) {
-                            Toast toast = Toast.makeText(getApplicationContext(), "Нет доступа к логированию!", Toast.LENGTH_SHORT);
+                            Toast toast = Toast.makeText(getApplicationContext(), "No access to worklog!", Toast.LENGTH_SHORT);
                             toast.show();
                         }
                     } else {
-                        Toast toast = Toast.makeText(getApplicationContext(), "Заполните все необходимые поля!", Toast.LENGTH_SHORT);
+                        Toast toast = Toast.makeText(getApplicationContext(), "Please fill out all required fields!", Toast.LENGTH_SHORT);
                         toast.show();
                     }
                 }
@@ -166,7 +166,7 @@ public class IssueInfo extends AppCompatActivity {
                                 issueDescriptionView.setText(issueInfo.getDescription());
                             }
                         } catch (Exception exception) {
-                            Toast toast = Toast.makeText(getApplicationContext(), "Нет доступа к редактированию описания задачи!", Toast.LENGTH_SHORT);
+                            Toast toast = Toast.makeText(getApplicationContext(), "No access to edit task description!", Toast.LENGTH_SHORT);
                             toast.show();
                         }
                     }
